@@ -1,0 +1,35 @@
+replicaCount: 1
+
+image:
+  repository: buildmystartup/basicwebapp
+  tag: latest
+  pullPolicy: Always
+
+nameOverride: ""
+fullnameOverride: ""
+nameSpace: default
+issuerRef: letsncrypt-prod
+
+service:
+  type: NodePort
+  port: 80
+
+ingress:
+  enabled: false
+  annotations:
+  ingressClass: nginx
+  secretName: basicwebapp-tls-prod
+  hosts: helloworld-v3.ghettolabs.io
+  path: /
+  serviceName: basicwebapp
+  servicePort: 80
+  ingressName: basicwebapp
+
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

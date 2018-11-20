@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: {{ .Values.ingress.ingressClass }}
+  name: {{ include "basicwebapp.fullname" . }}
+  namespace: {{ .Values.nameSpace }}
+spec:
+  tls:
+  - secretName: {{ .Values.ingress.secretName }}
+    hosts:
+    - {{ .Values.ingress.hosts }}
+  rules:
+    - host: {{ .Values.ingress.hosts }}
+      http:
+        paths:
+          - backend:
+              serviceName: {{ .Values.ingress.serviceName }}
+              servicePort: {{ .Values.ingress.servicePort }}
+            path: {{ .Values.ingress.path }}
